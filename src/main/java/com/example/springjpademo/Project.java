@@ -14,14 +14,8 @@ public class Project {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "employee_project",
-            inverseJoinColumns = @JoinColumn(name = "employee_id"),
-            joinColumns = @JoinColumn(name = "project_id")
-    )
+    @ManyToMany(mappedBy = "projects")
     private Set<Employee> employees;
-
 
     public Integer getId() {
         return id;

@@ -54,7 +54,23 @@ public class EmployeeService {
     }
 
     @Transactional
-    public Collection<EmployeeDTO> listEmployeesOfProject() {
+    public Collection<Employee> listEmployeesOfProject() {
+        TypedQuery<Employee> query = entityManager.createQuery(
+                // "select e.* from project p
+                //  join employee_project ep on p.id = ep.project_id
+                //  join employee e on e.id = ep.employee_id
+                //  where p.name= :name"
+                "select e from Project p join p.employees e " +
+                        "where p.name = :name",
+                Employee.class
+        );
+        query.setParameter("name", "Ciccio");
+        List<Employee> resultList = query.getResultStream().collect(Collectors.toList());
+        return resultList;
+    }
+
+    @Transactional
+    public Collection<EmployeeDTO> listEmployeesOfProjectUsingDto() {
         TypedQuery<EmployeeDTO> query = entityManager.createQuery(
                 // "select e.* from project p
                 //  join employee_project ep on p.id = ep.project_id

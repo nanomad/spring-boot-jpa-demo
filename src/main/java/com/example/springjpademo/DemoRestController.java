@@ -25,8 +25,8 @@ public class DemoRestController {
     }
 
     @GetMapping("employee")
-    public ResponseEntity<Collection<EmployeeDTO>> listEmployees() {
-        Collection<EmployeeDTO> result = employeeService.listEmployeesOfProject();
+    public ResponseEntity<Collection<Employee>> listEmployees() {
+        Collection<Employee> result = employeeService.listEmployeesOfProject();
         return ResponseEntity.ok(result);
     }
 
