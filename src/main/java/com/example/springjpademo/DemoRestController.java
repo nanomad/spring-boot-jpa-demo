@@ -1,22 +1,23 @@
 package com.example.springjpademo;
 
+import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
-
 @RestController
 @RequestMapping("/api/demo")
 public class DemoRestController {
 
     private final EmployeeService employeeService;
+    private final ProjectService projectService;
 
     @Autowired
-    public DemoRestController(EmployeeService employeeService) {
+    public DemoRestController(EmployeeService employeeService, ProjectService projectService) {
         this.employeeService = employeeService;
+        this.projectService = projectService;
     }
 
     @GetMapping
@@ -27,6 +28,18 @@ public class DemoRestController {
     @GetMapping("employee")
     public ResponseEntity<Collection<Employee>> listEmployees() {
         Collection<Employee> result = employeeService.listEmployeesOfProject();
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("project")
+    public ResponseEntity<Collection<ProjectDTO>> listProjects() {
+        Collection<ProjectDTO> result = projectService.findProjectByCustomer("BIG_PHARMA");
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("customer")
+    public ResponseEntity<Collection<CustomerDTO>> listCustomers() {
+        Collection<CustomerDTO> result = projectService.findCustomerByEmployee("Giovanni");
         return ResponseEntity.ok(result);
     }
 
