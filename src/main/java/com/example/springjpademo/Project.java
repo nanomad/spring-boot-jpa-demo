@@ -1,6 +1,7 @@
 package com.example.springjpademo;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -15,7 +16,7 @@ public class Project {
     private String name;
 
     @ManyToMany(mappedBy = "projects")
-    private Set<Employee> employees;
+    private Set<Employee> employees = new HashSet<>();
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
@@ -51,5 +52,10 @@ public class Project {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void addEmployee(Employee e) {
+        getEmployees().add(e);
+        e.getProjects().add(this);
     }
 }

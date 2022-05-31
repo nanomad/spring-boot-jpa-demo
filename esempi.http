@@ -1,1 +1,3 @@
-GET http://localhost:8080/api/demo/customer
+GET http://localhost:8080/api/demo/project
+###
+POST http://localhost:8080/api/demo/project

@@ -17,7 +17,12 @@ public class Employee {
     @Column(name = "role", length = 255)
     private String ilRuolo;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(
+            fetch = FetchType.EAGER,
+            cascade = {
+                    CascadeType.ALL
+            }
+    )
     @JoinTable(
             name = "employee_project",
             joinColumns = @JoinColumn(name = "employee_id"),

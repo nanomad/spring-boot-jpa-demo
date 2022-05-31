@@ -4,6 +4,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +34,7 @@ public class DemoRestController {
 
     @GetMapping("project")
     public ResponseEntity<Collection<ProjectDTO>> listProjects() {
-        Collection<ProjectDTO> result = projectService.findProjectByCustomer("BIG_PHARMA");
+        Collection<ProjectDTO> result = projectService.findAllProjects();
         return ResponseEntity.ok(result);
     }
 
@@ -41,6 +42,12 @@ public class DemoRestController {
     public ResponseEntity<Collection<CustomerDTO>> listCustomers() {
         Collection<CustomerDTO> result = projectService.findCustomerByEmployee("Giovanni");
         return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("project")
+    public ResponseEntity<Boolean> createProject() {
+        projectService.createRandomProject();
+        return ResponseEntity.ok(true);
     }
 
 //
